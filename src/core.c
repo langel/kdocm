@@ -25,7 +25,9 @@ uint8_t palette[16][4] = {
 void core_init() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 //	keyboard_init();
-	fcl_window_create("King Duck of Cluck Mountain", 1024, 576);
+	window_state_set_filename("kdocm");
+	window_init("King Duck of Cluck Mountain");
+	//1024, 576);
 	fvc_init(420, 200);
 	for (int i = 0; i < 16; i++) {
 		fvc_set_color_index(i, palette[i][0], palette[i][1], palette[i][2]);
@@ -41,6 +43,7 @@ void core_main() {
 	int running = 1;
 	while (running) {
 		while (SDL_PollEvent(&event)) {
+			fcl_event(event);
 			switch (event.type) {
 				case SDL_QUIT:
 					running = 0;

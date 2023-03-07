@@ -23,7 +23,7 @@ void fvc_frame_next() {
 	SDL_RenderCopy(fvc_renderer, texture, NULL, NULL);
 	SDL_RenderPresent(fvc_renderer);
 	SDL_DestroyTexture(texture);
-	fcl_time_wait_next_frame();
+	frame_wait_next();
 }
 
 void fvc_set_dimensions(int x, int y) {
@@ -34,7 +34,7 @@ void fvc_set_dimensions(int x, int y) {
 void fvc_init(int x, int y) {
 	fvc_set_dimensions(x, y);
 	fvc_texture = SDL_CreateTexture(fvc_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, fvc_width, fvc_height);
-	fvc_renderer = SDL_CreateRenderer(fcl_window_object, -1, 0);
+	fvc_renderer = SDL_CreateRenderer(window, -1, 0);
 	//fvc_surface = SDL_CreateRGBSurface(SDL_SWSURFACE, fvc_width, fvc_height, 8, 0, 0, 0, 0);
 	//SDL_SetPaletteColors(fvc_surface->format->palette, fvc_colors, 0, 256);
 	//fvc_ram = (uint8_t) fvc_surface->pixels;
