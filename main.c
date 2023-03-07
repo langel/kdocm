@@ -1,10 +1,7 @@
-#include <math.h>
-#include <stdarg.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
+// gives program stdout access
+#define SDL_MAIN_HANDLED
+
+#include "./lib/core.c"
 #include "./fcl/core.c"
 #include "./src/core.c"
 
