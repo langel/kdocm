@@ -1,4 +1,5 @@
 #include "SDL.h"
+SDL_Event event;
 
 #include "./window.c"
 #include "./frame.c"
@@ -24,4 +25,8 @@ void fcl_update() {
 	mouse_update();
 	window_update();
 	fvc_frame_next();
+}
+
+void fcl_shutdown() {
+	SDL_Quit();
 }

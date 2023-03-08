@@ -105,6 +105,8 @@ void window_event(SDL_Event event) {
 			window_rect.y = event.window.data2;
 		}
 		if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+			window_state_save();
+			// xxx do we need to even track this?
 			window_rect.w = event.window.data1;
 			window_rect.h = event.window.data2;
 		}
