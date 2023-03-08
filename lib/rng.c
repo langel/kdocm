@@ -45,6 +45,14 @@ float squirrel3_neg_float(uint32_t position, uint32_t seed) {
 
 
 // Linear Feedback Shift Registers
+int rng8() {
+	static uint8_t val = 1;
+	int carry = val & 1;
+	val >>= 1;
+	if (carry) val ^= 0xd4;
+	return (int) val;
+}
+
 // note very tested
 
 int rng_lfsr_8bit_next(uint8_t *val, int max) {
@@ -54,7 +62,7 @@ int rng_lfsr_8bit_next(uint8_t *val, int max) {
 	return (int)( ( (float) *val / (float) 0xff) * (float) max );
 }
 
-int rng8(int max) {
+int rng8_precent(int max) {
 	static uint8_t val = 1;
 	return rng_lfsr_8bit_next(&val, max);
 }
@@ -66,7 +74,7 @@ int rng_lfsr_16bit_next(uint16_t *val, int max) {
 	return (int)( ( (float) *val / (float) 0xffff) * (float) max );
 }
 
-int rng16(int max) {
+int rng16_precent(int max) {
 	static uint16_t val = 1;
 	return rng_lfsr_16bit_next(&val, max);
 }
@@ -78,7 +86,7 @@ int rng_lfsr_32bit_next(uint32_t *val, int max) {
 	return (int)( ( (float) *val / (float) 0xffffffff) * (float) max );
 }
 
-int rng32(int max) {
+int rng32i_precent(int max) {
 	static uint32_t val = 1;
 	return rng_lfsr_32bit_next(&val, max);
 }
