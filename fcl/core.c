@@ -9,6 +9,9 @@
 #include "./fvc.c"
 
 void fcl_init() {
+	keyboard_init();
+	mouse_init();
+	SDL_Init(SDL_INIT_EVERYTHING);
 }
 
 void fcl_event(SDL_Event event) {
@@ -20,4 +23,5 @@ void fcl_update() {
 	keyboard_update();
 	mouse_update();
 	window_update();
+	fvc_frame_next();
 }

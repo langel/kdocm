@@ -7,6 +7,7 @@ uint8_t *fvc_ram;
 uint16_t fvc_width = 420;
 uint16_t fvc_height= 200;
 SDL_Texture *fvc_texture;
+SDL_Texture *fvc_overscale;
 SDL_Color fvc_colors[256];
 SDL_Renderer *fvc_renderer;
 SDL_Surface *fvc_surface;
@@ -17,13 +18,21 @@ void fvc_clear(uint8_t index) {
 }
 
 void fvc_frame_next() {
+	/* surface based code 
 	// blit that shit
 	//fvc_clear(0);
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(fvc_renderer, fvc_surface);
 	SDL_RenderCopy(fvc_renderer, texture, NULL, NULL);
 	SDL_RenderPresent(fvc_renderer);
 	SDL_DestroyTexture(texture);
-	frame_wait_next();
+	*/
+	//frame_wait_next();
+	// "shader effects" xD
+	SDL_SetRenderTarget(fvc_renderer, fvc_overscale);
+	SDL_RenderCopy(fvc_renderer, fvc_texture, NULL, NULL);
+	SDL_SetRenderTarget(fvc_renderer, NULL);
+	SDL_RenderCopy(fvc_renderer, fvc_overscale, NULL, NULL);
+	SDL_RenderPresent(fvc_renderer);
 }
 
 void fvc_set_dimensions(int x, int y) {
@@ -32,9 +41,12 @@ void fvc_set_dimensions(int x, int y) {
 }
 
 void fvc_init(int x, int y) {
+	fvc_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	fvc_set_dimensions(x, y);
-	fvc_texture = SDL_CreateTexture(fvc_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, fvc_width, fvc_height);
-	fvc_renderer = SDL_CreateRenderer(window, -1, 0);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+	fvc_texture = SDL_CreateTexture(fvc_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, fvc_width, fvc_height);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+	fvc_overscale = SDL_CreateTexture(fvc_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, fvc_width * 3, fvc_height * 3);
 	//fvc_surface = SDL_CreateRGBSurface(SDL_SWSURFACE, fvc_width, fvc_height, 8, 0, 0, 0, 0);
 	//SDL_SetPaletteColors(fvc_surface->format->palette, fvc_colors, 0, 256);
 	//fvc_ram = (uint8_t) fvc_surface->pixels;

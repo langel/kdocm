@@ -13,6 +13,7 @@ void frame_set_fps(int fps) {
 }
 
 void frame_wait_next() {
+	// XXX definite lag issues
 	//printf("%7f  ", fcl_time_frame_pos);
 	uint32_t now = SDL_GetTicks();
 	//printf("%d  ", now);
