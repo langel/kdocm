@@ -22,6 +22,17 @@ uint32_t squirrel3(uint32_t position, uint32_t seed) {
 	return mangled;
 }
 
+uint32_t squirrel3_pos;
+uint32_t squirrel3_seed;
+void rng_reset(uint32_t seed) { 
+	squirrel3_pos = 0x13371337;
+	squirrel3_seed = seed;
+};
+uint32_t rngn() {
+	squirrel3_pos++;
+	return squirrel3(squirrel3_pos, squirrel3_seed);
+}
+
 uint32_t squirrel3_get_2d(int x, int y, uint32_t seed) {
 	const int prime = 198491317;
 	return squirrel3((uint32_t) (x + y * prime), seed);

@@ -17,3 +17,7 @@
 - FCL major refactors
 - load and display sprites
 - generate dirt texture
+
+### Day 3
+- seed-based complete map generation
+- start state controller logic

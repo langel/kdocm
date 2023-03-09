@@ -40,6 +40,10 @@ void fvc_set_dimensions(int x, int y) {
 	fvc_height = y;
 }
 
+SDL_Texture * fvc_texture_create(int width, int height) {
+	return SDL_CreateTexture(fvc_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, width, height);
+}
+
 void fvc_init(int x, int y) {
 	fvc_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	fvc_set_dimensions(x, y);
