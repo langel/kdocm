@@ -33,7 +33,13 @@ void state_map_test_init() {
 }
 
 void state_map_test_frame() {
+	static int xpos = 0;
 	SDL_SetRenderTarget(fvc_renderer, fvc_texture);
 	SDL_RenderCopy(fvc_renderer, state_map_test_texture, NULL, NULL);
 	if (keys[SDL_SCANCODE_SPACE] == 1) state_map_new_map();
+	// king duck
+	int frame = (xpos >> 2) % 4;
+	SDL_RenderCopy(fvc_renderer, spriteshit, 
+		&(SDL_Rect) { frame * 20, 0, 20, 40 },
+		&(SDL_Rect) { 100, 120, 20, 40 });
 }

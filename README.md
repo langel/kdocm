@@ -21,3 +21,6 @@
 ### Day 3
 - seed-based complete map generation
 - start state controller logic
+
+### Day 4
+- integrate cavern generation

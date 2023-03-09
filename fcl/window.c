@@ -91,8 +91,9 @@ void window_ontop_set_false(SDL_Window * window) {
 // CORE 
 
 void window_init(char * name) {
+	SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 	// default window start size?
-	window = SDL_CreateWindow(name, window_rect.x, window_rect.y, window_rect.w, window_rect.h, SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow(name, window_rect.x, window_rect.y, window_rect.w, window_rect.h, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
 	window_state_load();
 }
 
