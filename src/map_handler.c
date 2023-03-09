@@ -89,7 +89,7 @@ int tile2color[5] = { 16, 3, 11, 6, 4 };
 // each tile type has 4 colors associated
 
 
-void map_handler_generate_all(uint32_t seed) {
+void map_handler_generate_all() {
 	// clear all map data with rocks
 	for (int a = 0; a < map_levels; a++) {
 		for (int x = 0; x < map_width; x++) {
@@ -98,7 +98,6 @@ void map_handler_generate_all(uint32_t seed) {
 			}
 		}
 	}
-	rng_reset(1337);
 	int room_centers[16][2];
 	for (int a = 0; a < map_levels; a++) {
 		// make rooms	
@@ -135,14 +134,13 @@ void map_handler_generate_all(uint32_t seed) {
 		for (int i = 1; i < level->room_count; i++) {
 			// corridor cut outs between cavities
 			int target = rngn() % (i);
-			//printf("attaching cavity %d to cavity %d\n", i, target);
 			// current room
 			int crx = room_centers[i][0];
 			int cry = room_centers[i][1];
 			// target room
 			int trx = room_centers[target][0];
 			int try = room_centers[target][1];
-			//printf("target room center x, y : %d, %d\n", tcx, tcy);
+			// carve corriders
 			if (crx >= trx) for (int x = trx; x <= crx; x++) {
 				map_data[a][x][cry] = 0;		
 			}

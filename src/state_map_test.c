@@ -2,9 +2,9 @@
 
 SDL_Texture * state_map_test_texture;
 
-void state_map_test_init() {
-	state_map_test_texture = fvc_texture_create(SCREEN_W, SCREEN_H);
-	map_handler_generate_all(1337);
+
+void state_map_new_map() {
+	map_handler_generate_all();
 	SDL_SetRenderTarget(fvc_renderer, state_map_test_texture);
 	fvc_set_draw_color(16);
 	SDL_RenderFillRect(fvc_renderer, NULL);
@@ -26,7 +26,14 @@ void state_map_test_init() {
 	}
 }
 
+void state_map_test_init() {
+	rng_reset(1337);
+	state_map_test_texture = fvc_texture_create(SCREEN_W, SCREEN_H);
+	state_map_new_map();
+}
+
 void state_map_test_frame() {
 	SDL_SetRenderTarget(fvc_renderer, fvc_texture);
 	SDL_RenderCopy(fvc_renderer, state_map_test_texture, NULL, NULL);
+	if (keys[SDL_SCANCODE_SPACE] == 1) state_map_new_map();
 }
