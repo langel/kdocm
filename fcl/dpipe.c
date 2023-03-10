@@ -7,9 +7,11 @@
 */
 
 int dpipe_watch_time;
+int dpipe_enabled = 0;
+int dpipe_kill = 0;
 
 // XXX this shouldn't be hard coded
-char * dpipe_watch_file = "main.c";
+char dpipe_watch_file[256];
 
 int dpipe_get_watch_time() {
 	struct stat buff;
@@ -17,17 +19,22 @@ int dpipe_get_watch_time() {
 	return (int) buff.st_mtime;
 }
 
-void dpipe_init(SDL_Window * window) {
+void dpipe_init(char * const watch_file) {
+	strcpy(dpipe_watch_file, watch_file);
 	dpipe_watch_time = dpipe_get_watch_time();
-	window_focus(window);
+	dpipe_enabled++;
 }
 
-int dpipe_check_update() {
+void dpipe_update() {
 	// returns true if watch file has been updated
-	return (dpipe_watch_time == dpipe_get_watch_time()) ? 0 : 1;
+	if (!dpipe_enabled) return;
+	if (dpipe_watch_time == dpipe_get_watch_time()) return;
+	fcl_running = 0;
 }
 
-void dpipe_kill_cycle() {
+void dpipe_quit() {
+	printf("%d %d\n", dpipe_enabled, dpipe_kill);
+	if (!dpipe_enabled || !dpipe_kill) return;
 	FILE * fp = fopen("dpipe_death", "w");
 	fclose(fp);
 }

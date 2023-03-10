@@ -10,6 +10,7 @@ void core_init() {
 	fcl_init();
 	window_state_set_filename("kdocm");
 	window_init("King Duck of Cluck Mountain");
+	dpipe_init("src/cavern_gen.c");
 	fvc_init(SCREEN_W, SCREEN_H);
 	grafx_init();
 	state_controller_init();
@@ -18,14 +19,18 @@ void core_init() {
 
 void core_main() {
 	core_init();
+	// XXX specific for dev pipeline
+	SDL_MinimizeWindow(window);
+	SDL_RestoreWindow(window);
+//	SDL_RaiseWindow(window);
+	window_focus();
 	while (fcl_running) {
 		SDL_SetRenderTarget(fvc_renderer, fvc_texture);
 		state_controller_frame();
 		fcl_update();
-		if (keys[SDL_SCANCODE_ESCAPE]) fcl_running = 0;
-		
+		if (keys[SDL_SCANCODE_ESCAPE]) fcl_shutdown();
 	}
 	printf("sdl quit\n");
-	fcl_shutdown();
+	fcl_quit();
 	return;
 }

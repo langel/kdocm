@@ -24,6 +24,7 @@ void state_map_new_map() {
 			mapy += 13 + map_height;
 		}
 	}
+	// XXX test spot
 	cav_generate(20, 20);
 	for (int x = 0; x < SCREEN_W; x++) {
 		for (int y = 0; y < SCREEN_H; y++) {

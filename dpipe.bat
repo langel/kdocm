@@ -1,10 +1,10 @@
 :LOOP
 mingw32-make
 main.exe
-IF EXIST "devpipe_death" (
+IF EXIST "dpipe_death" (
 	GOTO DEATH
 ) ELSE (
 	GOTO LOOP
 )
 :DEATH
-del devpipe_death
+del dpipe_death

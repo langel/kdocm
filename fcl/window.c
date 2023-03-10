@@ -72,10 +72,10 @@ void fcl_window_center() {
 */
 
 // focus window
-void window_focus(SDL_Window * window) {
+void window_focus() {
 	// XXX seems to be confusion here
 	SDL_SetWindowAlwaysOnTop(window, SDL_TRUE);
-	SDL_SetWindowAlwaysOnTop(window, SDL_FALSE);
+//	SDL_SetWindowAlwaysOnTop(window, SDL_FALSE);
 	SDL_RaiseWindow(window);
 }
 // force window on top
