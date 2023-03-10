@@ -2,8 +2,8 @@
 #define cav_width 500
 #define cav_height 500
 
-#define cav_floor 1
-#define cav_wall 2
+#define cav_floor 0
+#define cav_wall 1
 #define cav_processed 3
 
 typedef struct {
@@ -13,11 +13,15 @@ typedef struct {
 
 int cav_data[cav_width][cav_height];
 int cav_temp[cav_width][cav_height];
+float cav_wall_chance = 0.425f;
 
 void cav_noise_next() {
 	for (int x = 0; x < cav_width; x++) {
 		for (int y = 0; y < cav_height; y++) {
-			cav_data[x][y] = (rngn() & 0x01) ? cav_floor : cav_wall;
+			float a = (float) rngn() / (float) 0xffffffff;
+			int b = 0;
+			if (a < cav_wall_chance) b = 1;
+			cav_data[x][y] = (b) ? cav_wall : cav_floor;
 		}
 	}
 }
@@ -44,9 +48,9 @@ void cav_smooth() {
 			}
 			// update cav value
 			int is_wall = (cav_data[x][y] == cav_wall);
-			if (wall_count < 3 && is_wall) cav_temp[x][y] = 0;
-			if (wall_count > 4 && !is_wall) cav_temp[x][y] = 1;
-			if (x == 0 || x == cav_width - 1 || y == 0 || y == cav_height - 1) cav_temp[x][y] = 1;
+			if (wall_count < 3 && is_wall) cav_temp[x][y] = cav_floor;
+			if (wall_count > 4 && !is_wall) cav_temp[x][y] = cav_wall;
+			if (x == 0 || x == cav_width - 1 || y == 0 || y == cav_height - 1) cav_temp[x][y] = cav_wall;
 		}
 	}
 	memcpy(cav_data, cav_temp, sizeof(int) * cav_width * cav_height);
@@ -86,6 +90,7 @@ cav_struct cav_find_next() {
 void cav_generate(int targ_x, int targ_y) {
 	cav_noise_next();
 	for (int i = 0; i < 7; i++) cav_smooth();
+	return;
 	int cav_id = 0;
 	cav_struct caverns[256];
 	cav_struct cav_obj;
