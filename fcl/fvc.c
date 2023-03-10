@@ -32,7 +32,6 @@ void fvc_frame_next() {
 	SDL_RenderCopy(fvc_renderer, fvc_texture, NULL, NULL);
 	SDL_SetRenderTarget(fvc_renderer, NULL);
 	SDL_RenderCopy(fvc_renderer, fvc_overscale, NULL, NULL);
-	SDL_RenderCopy(fvc_renderer, fvc_texture, &(SDL_Rect) { 0, 0, 420, 200 }, &(SDL_Rect) { 0, 0, 420, 200 });
 	SDL_RenderPresent(fvc_renderer);
 }
 

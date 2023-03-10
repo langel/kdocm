@@ -2,6 +2,7 @@
 #define SCREEN_H 200
 
 #include "./grafx.c"
+#include "./cavern_gen.c"
 #include "./map_handler.c"
 #include "./state_controller.c"
 

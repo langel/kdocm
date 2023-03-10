@@ -24,6 +24,14 @@ void state_map_new_map() {
 			mapy += 13 + map_height;
 		}
 	}
+	cav_generate(20, 20);
+	for (int x = 0; x < SCREEN_W; x++) {
+		for (int y = 0; y < SCREEN_H; y++) {
+			int tile = cav_data[x][y];
+			fvc_set_draw_color(tile2color[tile]);
+			SDL_RenderFillRect(fvc_renderer, &(SDL_Rect) { x, y, 1, 1 });
+		}
+	}
 }
 
 void state_map_test_init() {
