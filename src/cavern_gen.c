@@ -1,6 +1,6 @@
 
-#define cav_width 500
-#define cav_height 500
+#define cav_width 400
+#define cav_height 175
 
 #define cav_floor 0
 #define cav_wall 1
@@ -11,9 +11,10 @@ typedef struct {
 	SDL_Rect rect;
 } cav_struct;
 
+cav_struct cavern;
 int cav_data[cav_width][cav_height];
 int cav_temp[cav_width][cav_height];
-float cav_wall_chance = 0.425f;
+float cav_wall_chance = 0.444f;
 
 void cav_noise_next() {
 	for (int x = 0; x < cav_width; x++) {
@@ -57,52 +58,67 @@ void cav_smooth() {
 }
 
 void cav_fill(int x, int y, SDL_Point *min, SDL_Point *max) {
-	int cell = cav_data[x][y];
-	if (cell != cav_floor) return;
+	if (cav_data[x][y] != cav_floor) return;
 	cav_data[x][y] = cav_processed;
 	if (min->x > x) min->x = x;
 	if (max->x < x) max->x = x;
 	if (min->y > y) min->y = y;
 	if (max->y < y) max->y = y;
-	cav_fill(x+1, y, min, max);
-	cav_fill(x-1, y, min, max);
-	cav_fill(x, y+1, min, max);
-	cav_fill(x, y-1, min, max);
+	if (x < cav_width - 1) cav_fill(x+1, y, min, max);
+	if (x > 0) cav_fill(x-1, y, min, max);
+	if (y < cav_height - 1) cav_fill(x, y+1, min, max);
+	if (y > 0) cav_fill(x, y-1, min, max);
 }
 
-cav_struct cav_find_next() {
+
+void cav_mark(int x, int y, SDL_Point *min, SDL_Point *max) {
+	if (cav_data[x][y] != cav_processed) return;
+	cav_data[x][y] = cav_floor;
+	if (min->x > x) min->x = x;
+	if (max->x < x) max->x = x;
+	if (min->y > y) min->y = y;
+	if (max->y < y) max->y = y;
+	if (x < cav_width - 1) cav_fill(x+1, y, min, max);
+	if (x > 0) cav_fill(x-1, y, min, max);
+	if (y < cav_height - 1) cav_fill(x, y+1, min, max);
+	if (y > 0) cav_fill(x, y-1, min, max);
+}
+
+void cav_generate(int targ_w, int targ_h) {
+	cav_noise_next();
+	for (int i = 0; i < 7; i++) cav_smooth();
+	int cav_id = 0;
+	cav_struct caverns[256];
+	cav_struct cav_return;
+	SDL_Point min = { cav_width, cav_height };
+	SDL_Point max = { 0, 0 };
 	for (int x = 0; x < cav_width; x++) {
 		for (int y = 0; y < cav_height; y++) {
 			if (cav_data[x][y] == cav_floor) {
-				SDL_Point min = { cav_width, cav_height };
-				SDL_Point max = { 0, 0 };
+				min = (SDL_Point) { cav_width, cav_height };
+				max = (SDL_Point) { 0, 0 };
 				cav_fill(x, y, &min, &max);
-				return (cav_struct) {
+				int width = max.x - min.x;
+				int height = max.y - min.y;
+				caverns[cav_id] = (cav_struct) {
 					(SDL_Point) { x, y },
-					(SDL_Rect) { min.x, min.y, max.x - min.x, max.y - min.y }
+					(SDL_Rect) { min.x, min.y, width, height }
 				};
+				if (width <= targ_w && height <= targ_h) {
+					if (width*height > cavern.point.x*cavern.point.y) {
+						cavern = (cav_struct) {
+							(SDL_Point) { x, y },
+							(SDL_Rect) { min.x, min.y, width, height }
+						};
+					}
+					
+				}
+				cav_id++;
 			}
 		}
 	}
-	return (cav_struct) {0};
-}
-
-void cav_generate(int targ_x, int targ_y) {
-	cav_noise_next();
-	for (int i = 0; i < 7; i++) cav_smooth();
-	return;
-	int cav_id = 0;
-	cav_struct caverns[256];
-	cav_struct cav_obj;
-	cav_find_loop:
-	cav_obj = cav_find_next();
-	if (cav_obj.rect.w != 0) {
-		printf("%d %d %d %d\n", cav_obj.point.x, cav_obj.point.y, cav_obj.rect.w, cav_obj.rect.h);
-		caverns[cav_id] = cav_obj;
-		cav_id++;
-		goto cav_find_loop;
-	}
-	printf("%d\n", cav_id);
+	cav_mark(cavern.point.x, cavern.point.y, &min, &max);
+//	printf("%d\n", cav_id);
 	return;
 }
 

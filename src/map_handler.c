@@ -5,7 +5,13 @@
 #define map_levels 12
 #define map_room_min_x 4
 #define map_room_min_y 5
+#define tile_empty 0;
+#define tile_rock 1;
+#define tile_water 2;
+#define tile_lava 3;
+#define tile_dirt 4;
 
+int tile2color[5] = { 16, 3, 11, 6, 4 };
 int map_data[map_levels][map_width][map_height];
 
 typedef struct map_level_rules {
@@ -84,8 +90,6 @@ map_level_rules level_rules[map_levels] = {
 // 3 is lava   6
 // 3 is dirt   4
 
-int tile2color[5] = { 16, 3, 11, 6, 4 };
-
 // each tile type has 4 colors associated
 
 
@@ -94,12 +98,23 @@ void map_handler_generate_all() {
 	for (int a = 0; a < map_levels; a++) {
 		for (int x = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
-				map_data[a][x][y] = 4;
+				map_data[a][x][y] = tile_rock;
 			}
 		}
 	}
 	int room_centers[16][2];
 	for (int a = 0; a < map_levels; a++) {
+		// create cavity
+		cav_generate(level_rules[a].map_max_size[0], level_rules[a].map_max_size[1]);
+		
+		for (int x = cavern.rect.x; x < cavern.rect.x + cavern.rect.w; x++) {
+			for (int y = cavern.rect.y; y < cavern.rect.y + cavern.rect.h; y++) {
+				if (cav_data[x][y] == cav_floor) {
+					map_data[a][x][y] = tile_empty;
+				}
+			}
+		}
+		printf("%d %d %d %d\n", cavern.rect.x, cavern.rect.y, cavern.rect.w, cavern.rect.h);
 		// make rooms	
 		map_level_rules * level = &level_rules[a];
 		for (int r = 0; r < level->room_count; r++) {
@@ -110,7 +125,7 @@ void map_handler_generate_all() {
 			room.y = (map_height - level->map_max_size[1]) / 2 + (rngn() % (level->map_max_size[1] - room.h - 4)); 
 			for (int x = room.x; x < room.x + room.w; x++) {
 				for (int y = room.y; y < room.y + room.h; y++) {
-					map_data[a][x][y] = 0;
+					map_data[a][x][y] = tile_empty;
 				}
 			}
 			// cache room center position
@@ -142,16 +157,16 @@ void map_handler_generate_all() {
 			int try = room_centers[target][1];
 			// carve corriders
 			if (crx >= trx) for (int x = trx; x <= crx; x++) {
-				map_data[a][x][cry] = 0;		
+				map_data[a][x][cry] = tile_empty;		
 			}
 			else for (int x =  crx; x <= trx; x++) {
-				map_data[a][x][cry] = 0;
+				map_data[a][x][cry] = tile_empty;
 			}
 			if (cry >= try) for (int y = try; y <= cry; y++) {
-				map_data[a][trx][y] = 0;
+				map_data[a][trx][y] = tile_empty;
 			}
 			else for (int y =  cry; y <= try; y++) {
-				map_data[a][trx][y] = 0;
+				map_data[a][trx][y] = tile_empty;
 			}
 		}
 
