@@ -1,4 +1,5 @@
 #include "./state_crap_demo.c"
+#include "./state_game_play.c"
 #include "./state_map_test.c"
 #include "./state_map.c"
 
@@ -14,7 +15,8 @@ enum states {
 
 void state_controller_init() {
 	state_map_test_init();
-	state_current = map_test;
+	state_game_play_init();
+	state_current = game_play;
 }
 
 
@@ -33,6 +35,7 @@ void state_controller_frame() {
 		case game_map:
 			break;
 		case game_play:
+			state_game_play_frame();
 			break;
 	}
 }

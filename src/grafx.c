@@ -24,6 +24,9 @@ uint8_t palette[24][4] = {
 	{ 0x2c, 0x2c, 0x2c, 0x2c }, // black
 };
 
+// used for writing bitmapped pixels to surfaces
+uint32_t surface_palette[24];
+
 SDL_Texture * spriteshit;
 
 SDL_Texture * dirt_texture;
@@ -34,6 +37,15 @@ void grafx_init() {
 	// convert paletter to indexed sdl colors	
 	for (int i = 0; i < 16; i++) {
 		fvc_set_color_index(i, palette[i][0], palette[i][1], palette[i][2]);
+	}
+	// convert palette for bitmap/surface usage
+	for (int i = 0; i < 8; i++) {
+		uint32_t color = 0;
+		color += palette[i][0] << 24;
+		color += palette[i][1] << 16;
+		color += palette[i][2] << 8;
+		color += 255;
+		surface_palette[i] = color;
 	}
 
 	// load the spriteshit

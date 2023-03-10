@@ -5,11 +5,11 @@
 #define map_levels 12
 #define map_room_min_x 4
 #define map_room_min_y 5
-#define tile_empty 0;
-#define tile_rock 1;
-#define tile_water 2;
-#define tile_lava 3;
-#define tile_dirt 4;
+#define tile_empty 0
+#define tile_rock 1
+#define tile_water 2
+#define tile_lava 3
+#define tile_dirt 4
 
 int tile2color[5] = { 16, 3, 11, 6, 4 };
 int map_data[map_levels][map_width][map_height];
