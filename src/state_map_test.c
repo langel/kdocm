@@ -30,7 +30,7 @@ void state_map_new_map() {
 		for (int y = 0; y < cav_height; y++) {
 			int tile = cav_data[x][y];
 			fvc_set_draw_color(tile2color[tile]);
-			SDL_RenderFillRect(fvc_renderer, &(SDL_Rect) { x, y, 1, 1 });
+//			SDL_RenderFillRect(fvc_renderer, &(SDL_Rect) { x, y, 1, 1 });
 		}
 	}
 }
