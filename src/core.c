@@ -30,7 +30,6 @@ void core_main() {
 		fcl_update();
 		if (keys[SDL_SCANCODE_ESCAPE]) fcl_shutdown();
 	}
-	printf("sdl quit\n");
 	fcl_quit();
 	return;
 }

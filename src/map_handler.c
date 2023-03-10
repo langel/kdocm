@@ -105,16 +105,22 @@ void map_handler_generate_all() {
 	int room_centers[16][2];
 	for (int a = 0; a < map_levels; a++) {
 		// create cavity
-		cav_generate(level_rules[a].map_max_size[0], level_rules[a].map_max_size[1]);
+		int targ_w = level_rules[a].map_max_size[0] * 2;
+		if (targ_w > map_width) targ_w = map_width - 2;
+		int targ_h = level_rules[a].map_max_size[1] * 2;
+		if (targ_h > map_height) targ_h = map_height - 2;
+		cav_generate(targ_w, targ_h);
 		
-		for (int x = cavern.rect.x; x < cavern.rect.x + cavern.rect.w; x++) {
-			for (int y = cavern.rect.y; y < cavern.rect.y + cavern.rect.h; y++) {
-				if (cav_data[x][y] == cav_floor) {
-					map_data[a][x][y] = tile_empty;
+		int basex = (map_width - cavwin.rect.w) >> 1;
+		int basey = (map_height - cavwin.rect.h) >> 1;
+
+		for (int x = 0; x < cavwin.rect.w; x++) {
+			for (int y = 0; y < cavwin.rect.h; y++) {
+				if (cav_data[x + cavwin.rect.x][y + cavwin.rect.y] == cav_floor) {
+					map_data[a][x + basex][y + basey] = tile_empty;
 				}
 			}
 		}
-		printf("%d %d %d %d\n", cavern.rect.x, cavern.rect.y, cavern.rect.w, cavern.rect.h);
 		// make rooms	
 		map_level_rules * level = &level_rules[a];
 		for (int r = 0; r < level->room_count; r++) {

@@ -11,7 +11,8 @@ typedef struct {
 	SDL_Rect rect;
 } cav_struct;
 
-cav_struct cavern;
+cav_struct cavnext;
+cav_struct cavwin;
 int cav_data[cav_width][cav_height];
 int cav_temp[cav_width][cav_height];
 float cav_wall_chance = 0.444f;
@@ -72,31 +73,30 @@ void cav_fill(int x, int y, int targ_c, int new_c) {
 	if (y > 0) cav_fill(x, y-1, targ_c, new_c);
 }
 
+void cav_next_find(int x, int y) {
+	cavnext = (cav_struct) {
+		(SDL_Point) { x, y },
+		(SDL_Rect) { x, y, 1, 1 }
+	};
+	cav_min = (SDL_Point) { x, y };
+	cav_max = (SDL_Point) { x, y };
+	cav_fill(x, y, cav_floor, cav_processed);
+	cavnext.rect = (SDL_Rect) { cav_min.x, cav_min.y, cav_max.x - cav_min.x, cav_max.y - cav_min.y };
+}
+
 
 void cav_generate(int targ_w, int targ_h) {
 	cav_noise_next();
 	for (int i = 0; i < 7; i++) cav_smooth();
 	int cav_id = 0;
-	cav_struct caverns[256];
-	cav_struct cav_return;
-	cav_min = (SDL_Point) { cav_width, cav_height };
-	cav_max = (SDL_Point) { 0, 0 };
+	cavwin = (cav_struct) {(SDL_Point){0},(SDL_Rect){0}};
 	for (int x = 0; x < cav_width; x++) {
 		for (int y = 0; y < cav_height; y++) {
 			if (cav_data[x][y] == cav_floor) {
-				cav_fill(x, y, cav_floor, cav_processed);
-				int width = cav_max.x - cav_min.x;
-				int height = cav_max.y - cav_min.y;
-				caverns[cav_id] = (cav_struct) {
-					(SDL_Point) { x, y },
-					(SDL_Rect) { cav_min.x, cav_min.y, width, height }
-				};
-				if (width <= targ_w && height <= targ_h) {
-					if (width*height > cavern.point.x*cavern.point.y) {
-						cavern = (cav_struct) {
-							(SDL_Point) { x, y },
-							(SDL_Rect) { cav_min.x, cav_min.y, width, height }
-						};
+				cav_next_find(x, y);
+				if (cavnext.rect.w <= targ_w && cavnext.rect.h <= targ_h) {
+					if (cavnext.rect.w*cavnext.rect.h > cavwin.rect.w*cavwin.rect.h) {
+						cavwin = cavnext;
 					}
 					
 				}
@@ -104,8 +104,9 @@ void cav_generate(int targ_w, int targ_h) {
 			}
 		}
 	}
-	cav_fill(cavern.point.x, cavern.point.y, cav_processed, cav_floor);
-	printf("%d\n", cav_id);
+	cav_min = (SDL_Point) { cavwin.rect.x, cavwin.rect.y };
+	cav_max = (SDL_Point) { cavwin.rect.x, cavwin.rect.y };
+	cav_fill(cavwin.point.x, cavwin.point.y, cav_processed, cav_floor);
 	return;
 }
 
