@@ -2,6 +2,7 @@
 SDL_Event fcl_event;
 int fcl_running;
 
+#include "./audio.c"
 #include "./window.c"
 #include "./frame.c"
 #include "./keyboard.c"

@@ -4,7 +4,20 @@
 int frame_counter;
 SDL_Rect camera_rect = { 0, 0, 320, 200};
 
+int player_level;
+int player_gp;
+int player_hp;
+int player_hp_max;
+int player_xp;
+int player_steps;
+int player_update_level;
+
 #include "./grafx.c"
+#include "./sfx.c"
+#include "./map_data.c"
+#include "./ent_data.c"
+#include "./action_log.c"
+#include "./ent_handler.c"
 #include "./cavern_gen.c"
 #include "./map_handler.c"
 #include "./map_grafx.c"
