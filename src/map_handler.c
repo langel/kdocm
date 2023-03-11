@@ -21,57 +21,58 @@ typedef struct map_level_rules {
 	int debris_rock_count;
 	int debris_water_count;
 	int debris_lava_count;
+	int debris_dirt_count;
 } map_level_rules;
 
 map_level_rules level_rules[map_levels] = {
 	{ // level 1
 		{  32, 20 }, // max map size
 		{   3,  4 }, // max room size
-		3, 128, 1024, 0 },
+		3, 128, 1024, 0, 32 },
 	{ // level 2
 		{  80, 50 },
 		{  28, 14 },
-		9, 256, 512, 0 },
+		9, 256, 512, 0, 64 },
 	{ // level 3
 		{ 126, 78 }, // max map size
 		{  32, 20 }, // max room size
-		9, 512, 256, 0 },
+		9, 512, 256, 0, 128 },
 	{ // level 4
 		{  80, 50 }, // max map size
 		{  40, 24 }, // max room size
-		5, 512, 128, 0 },
+		5, 512, 128, 0, 256 },
 	{ // level 5
 		{ 126, 78 }, // max map size
 		{   3,  2 }, // max room size
-		9, 128, 64, 0 },
+		9, 128, 64, 0, 512 },
 	{ // level 6
 		{ 126, 78 }, // max map size
 		{  20,  8 }, // max room size
-		9, 1024, 32, 0 },
+		9, 1024, 32, 0, 256 },
 	{ // level 7
 		{  80, 50 }, // max map size
 		{  32, 20 }, // max room size
-		9, 512, 16, 0 },
+		9, 512, 16, 0, 128 },
 	{ // level 8
 		{ 126, 78 },
 		{  48, 32 },
-		15, 1024, 8, 0 },
+		15, 1024, 8, 0, 64 },
 	{ // level 9
 		{  32, 20 }, // max map size
 		{   3,  4 }, // max room size
-		3, 256, 4, 0 },
+		3, 256, 4, 0, 32 },
 	{ // level 10 // macguffin quest
 		{  80, 50 }, // max map size
 		{  40, 24 }, // max room size
-		5, 512, 16, 128 },
+		5, 512, 16, 128, 64 },
 	{ // level 11 // macguffin quest
 		{ 126, 78 }, // max map size
 		{   3,  2 }, // max room size
-		2, 128, 0, 1024 },
+		2, 128, 0, 1024, 128 },
 	{ // level 12 // macguffin quest
 		{ 126, 78 }, // max map size
 		{  20,  8 }, // max room size
-		3, 1024, 0, 2048 },
+		3, 1024, 0, 2048, 256 },
 };
 
 // 1 : 3 rooms
@@ -121,6 +122,7 @@ void map_handler_generate_all() {
 				}
 			}
 		}
+
 		// make rooms	
 		map_level_rules * level = &level_rules[a];
 		for (int r = 0; r < level->room_count; r++) {
@@ -140,15 +142,19 @@ void map_handler_generate_all() {
 		}
 		// add rock debris
 		for (int i = 0; i < level->debris_rock_count; i++) {
-			map_data[a][rngn() % map_width][rngn() % map_height] = 1;
+			map_data[a][rngn() % map_width][rngn() % map_height] = tile_rock;
 		}
 		// add water debris
 		for (int i = 0; i < level->debris_water_count; i++) {
-			map_data[a][rngn() % map_width][rngn() % map_height] = 2;
+			map_data[a][rngn() % map_width][rngn() % map_height] = tile_water;
 		}
 		// add lava debris
 		for (int i = 0; i < level->debris_lava_count; i++) {
-			map_data[a][rngn() % map_width][rngn() % map_height] = 3;
+			map_data[a][rngn() % map_width][rngn() % map_height] = tile_lava;
+		}
+		// add dirt debris
+		for (int i = 0; i < level->debris_dirt_count; i++) {
+			map_data[a][rngn() % map_width][rngn() % map_height] = tile_dirt;
 		}
 
 		// carve corridors between rooms

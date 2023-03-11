@@ -7,7 +7,7 @@ int map_surface_size = map_width * 10 * map_height * 10 * 4;
 uint32_t * map_surface_pixels;
 
 int map_wall_pal[9][4] = {
-	{ 6, 5, 0, 7 },
+	{ 2, 3, 4, 5 },
 	{ 6, 5, 1, 7 },
 	{ 2, 5, 6, 7 }, // herbs?
 	{ 3, 5, 6, 7 },
@@ -16,6 +16,14 @@ int map_wall_pal[9][4] = {
 	{ 4, 5, 7, 4 },
 	{ 4, 6, 7, 1 },
 	{ 5, 4, 6, 1 },
+};
+
+int tile_colors[8][4] = {
+	{ 16, 16, 16, 16 }, // empty (uses no palette)
+	{ 16, 16, 16, 16 }, // rock (uses different palette)
+	{  5, 11, 12, 11 }, // water
+	{  4,  6,  7,  8 }, // lava
+	{  2,  4,  5,  5 }, // dirt
 };
 
 void map_grafx_init() {
@@ -67,16 +75,15 @@ void map_plot_wall_tile(int map_level, int x, int y) {
 	}
 }
 
-void map_plot_water_tile(int map_level, int x, int y) {
+void map_plot_tile(int map_level, int x, int y, int type) {
 	int x1 = x * 10;
 	int y1 = y * 10;
 	SDL_Point map_pixel;
-	int colors[4] = { 3, 3, 0, 3 };
 	int color_id;
 	for (int x2 = 0; x2 < 10; x2++) {
 		for (int y2 = 0; y2 < 10; y2++) {
 			if (map_tile_pixel_visible(map_level, 2, x, y, x2, y2, 5)) {
-				color_id = colors[rng8() & 3];
+				color_id = tile_colors[type][rng8() & 3];
 				map_pixel.x = x1 + x2;
 				map_pixel.y = y1 + y2;
 				map_surface_pixels[map_pixel.x + map_pixel.y * map_width * 10] = surface_palette[color_id];
@@ -92,11 +99,12 @@ void map_playfield_render(int level) {
 	}
 	for (int x = 0; x < map_width; x++) {
 		for (int y = 0; y < map_height; y++) {
-			if (map_data[level][x][y] == tile_rock) {
+			int type = map_data[level][x][y];
+			if (type == tile_rock) {
 				map_plot_wall_tile(level, x, y);
 			}
-			if (map_data[level][x][y] == tile_water) {
-				map_plot_water_tile(level, x, y);
+			if (type > tile_rock) {
+				map_plot_tile(level, x, y, type);
 			}
 		}
 	}
