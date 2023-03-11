@@ -13,6 +13,8 @@ void state_game_play_init() {
 	SDL_QueryTexture(map_view_texture, NULL, NULL, &size.x, &size.y);
 	printf("%d %d\n", size.x, size.y);
 	ent_load_type(player_level, 0, ent_player);
+	ents[player_level][0].xt = map_width >> 1;
+	ents[player_level][0].yt = map_height >> 1;
 }
 
 void state_game_play_frame() {
@@ -70,6 +72,8 @@ void state_game_play_frame() {
 	// background refresh
 	SDL_RenderCopy(fvc_renderer, map_texture, &oob_cam, &oob_field);
 	ents_render(ents[player_level], fvc_renderer);
+
+	SDL_RenderFillRect(fvc_renderer, &(SDL_Rect) { 320, 0, 100, 200 });
 
 /*
 	// king duck

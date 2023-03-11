@@ -58,9 +58,9 @@ typedef struct {
 
 ent_type ent_types[42] = {
 	{ "nan", ent_state_dead, 0, 0, 0, "does not exist", 
-		{ 0, 0, 20, 40 }, 0 },
+		{ 0, 0, 0, 0 }, 0 },
 	{ "player", ent_state_wandering,	42, 10, 10, "quacks", 
-		{ 180, 100, 20, 20 }, 0 },
+		{ 0, 0, 20, 40 }, 0 },
 	{ "ladder up", ent_state_dormant, 
 		0, 0, 0, "ascends",
 		{ 80, 0, 20, 20 }, 13 },
