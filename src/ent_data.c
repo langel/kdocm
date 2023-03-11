@@ -10,7 +10,7 @@ typedef struct {
 	int collisions;
 } ent;
 
-#define ENTS_COUNT 99
+#define ENTS_COUNT 128
 ent ents[map_levels][ENTS_COUNT];
 
 #define ent_state_dead 0
@@ -34,11 +34,11 @@ ent ents[map_levels][ENTS_COUNT];
 #define ent_mimic 10
 
 // number of types per level
-int map_ent_type_count[9] = {0};
+int map_ent_type_count[map_levels] = {0};
 // number of ents per level
-int map_ents_count[9] = {0};
+int map_ents_count[map_levels] = {0};
 // ent types per level
-int map_ent_types[9][16]  = {0};
+int map_ent_types[map_levels][16] = {0};
 
 typedef struct {
 	int ent_types_count;

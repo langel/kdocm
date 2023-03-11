@@ -43,7 +43,9 @@ void ent_load_type(int map_level, int ent_id, int ent_type) {
 
 
 void ents_init(int map_level) {
-	for (int i = 3; i < map_ents_count[map_level] + 3; i++) {
+	// ents before padding are engine specific
+	int pad = 8;
+	for (int i = pad; i < map_ents_count[map_level] + pad; i++) {
 //		printf("\nent_id %d\n", i);
 		ent e = ents[map_level][i];
 		e.type = map_ent_types[map_level][rand() % map_ent_type_count[map_level]];

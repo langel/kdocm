@@ -1,29 +1,12 @@
 
 SDL_Rect playfield_rect = { 0, 0, 320, 200 };
 
-void state_game_play_init() {
-	map_handler_generate_all();
-	int player_level = 0;
-	map_playfield_render(player_level);
-	map_view_texture_update(player_level);
-	ents_init(player_level);
-	SDL_Point size;
-	SDL_QueryTexture(map_texture, NULL, NULL, &size.x, &size.y);
-	printf("%d %d\n", size.x, size.y);
-	SDL_QueryTexture(map_view_texture, NULL, NULL, &size.x, &size.y);
-	printf("%d %d\n", size.x, size.y);
-	ent_load_type(player_level, 0, ent_player);
-	ents[player_level][0].xt = map_width >> 1;
-	ents[player_level][0].yt = map_height >> 1;
-}
 
 void state_game_play_frame() {
 	ents_update(player_level, ents[player_level], playfield_rect);
 
 	camera_rect.x = (ents[player_level][0].xt - 16) * 10;
 	camera_rect.y = (ents[player_level][0].yt - 10) * 10;
-	//camera_rect.x = map_width * 5 - 160;
-	//camera_rect.y = map_width * 5 - 100;
 	
 	// dirt floor
 	int dirtx = camera_rect.x % SCREEN_W;
