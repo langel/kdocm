@@ -10,7 +10,7 @@ void state_game_hud_init() {
 
 void state_game_hud_render() {
 	// clear hud space
-	fvc_set_draw_color(4);
+	fvc_set_draw_color(17);
 	SDL_RenderFillRect(fvc_renderer, &hud_rect);
 	// title of game
 	hud_title_rect.h = fonts[0].height;

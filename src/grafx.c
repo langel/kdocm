@@ -1,7 +1,7 @@
 
+#define palette_max 24
 
-
-uint8_t palette[24][4] = {
+uint8_t palette[palette_max][4] = {
 	// 0
 	{ 0xec, 0xe0, 0xd3, 0xff }, // beige
 	{ 0xa6, 0xaf, 0xb7, 0xff }, // gray light
@@ -21,11 +21,12 @@ uint8_t palette[24][4] = {
 	{ 0xd0, 0x58, 0x9f, 0xff }, // pink
 	{ 0x8d, 0x55, 0xae, 0xff }, // violet
 	// 16
-	{ 0x2c, 0x2c, 0x2c, 0x2c }, // black
+	{ 0x2c, 0x2c, 0x2c, 0xff }, // black
+	{ 0x1f, 0x1f, 0x1f, 0xff }, // blacker
 };
 
 // used for writing bitmapped pixels to surfaces
-uint32_t surface_palette[24];
+uint32_t surface_palette[palette_max];
 
 SDL_Texture * spriteshit;
 
@@ -35,11 +36,11 @@ SDL_Texture * dirt_texture;
 void grafx_init() {
 
 	// convert paletter to indexed sdl colors	
-	for (int i = 0; i < 16; i++) {
+	for (int i = 0; i < palette_max; i++) {
 		fvc_set_color_index(i, palette[i][0], palette[i][1], palette[i][2]);
 	}
 	// convert palette for bitmap/surface usage
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < palette_max; i++) {
 		uint32_t color = 0;
 		color += palette[i][0] << 24;
 		color += palette[i][1] << 16;

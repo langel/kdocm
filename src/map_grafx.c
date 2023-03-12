@@ -7,8 +7,8 @@ int map_surface_height = map_height * 10;
 int map_surface_size = map_width * 10 * map_height * 10 * 4;
 uint32_t * map_surface_pixels;
 
-int map_wall_pal[9][4] = {
-	{ 2, 3, 4, 5 },
+int map_wall_pal[map_levels][4] = {
+	{ 2, 3, 4, 5 }, // 1
 	{ 6, 5, 1, 7 },
 	{ 2, 5, 6, 7 }, // herbs?
 	{ 3, 5, 6, 7 },
@@ -16,7 +16,10 @@ int map_wall_pal[9][4] = {
 	{ 6, 2, 3, 5 },
 	{ 4, 5, 7, 4 },
 	{ 4, 6, 7, 1 },
-	{ 5, 4, 6, 1 },
+	{ 5, 4, 6, 1 }, // 9
+	{ 4, 6, 5, 7 }, // A
+	{ 4, 6, 5, 8 }, // B
+	{ 5, 6, 7, 8 }, // C
 };
 
 int tile_colors[8][4] = {
@@ -83,7 +86,7 @@ void map_plot_tile(int map_level, int x, int y, int type) {
 	int color_id;
 	for (int x2 = 0; x2 < 10; x2++) {
 		for (int y2 = 0; y2 < 10; y2++) {
-			if (map_tile_pixel_visible(map_level, 2, x, y, x2, y2, 5)) {
+			if (map_tile_pixel_visible(map_level, type, x, y, x2, y2, 5)) {
 				map_pixel.x = x1 + x2;
 				map_pixel.y = y1 + y2;
 				color_id = tile_colors[type][rng8() & 3];
