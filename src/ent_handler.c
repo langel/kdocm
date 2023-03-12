@@ -104,21 +104,25 @@ void ents_update(int map_level, ent ents[], SDL_Rect rect) {
 					ent_type ent_target_type = ent_types[ent_target.type];
 					// IS PLAYER
 					if (i == 0) {
-					/*
 						// macguffin points
-						if (ent_target.type == ent_crown) {
+						if (ent_target.type == ent_cleaver) {
 							player_gp += 1777;
 							player_xp += 1777;
 							ent_load_type(map_level, target_id, ent_nan);
 							// this triggers crown sfx
-							player_has_crown = 1;
+							player_has_cleaver = 1;
 						}
-					*/
 						if (ent_target.type == ent_ladder_down) {
 							player_update_level = 1;
 						}
 						if (ent_target.type == ent_ladder_up) {
 							player_update_level = -1;
+						}
+						if (ent_target.type == ent_ladder_down2) {
+							player_update_level = 3;
+						}
+						if (ent_target.type == ent_ladder_up2) {
+							player_update_level = -3;
 						}
 						int amount = 0;
 						if (ent_target.type == ent_chest) {

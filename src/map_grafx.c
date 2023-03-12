@@ -84,9 +84,9 @@ void map_plot_tile(int map_level, int x, int y, int type) {
 	for (int x2 = 0; x2 < 10; x2++) {
 		for (int y2 = 0; y2 < 10; y2++) {
 			if (map_tile_pixel_visible(map_level, 2, x, y, x2, y2, 5)) {
-				color_id = tile_colors[type][rng8() & 3];
 				map_pixel.x = x1 + x2;
 				map_pixel.y = y1 + y2;
+				color_id = tile_colors[type][rng8() & 3];
 				map_surface_pixels[map_pixel.x + map_pixel.y * map_width * 10] = surface_palette[color_id];
 			}
 		}

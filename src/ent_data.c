@@ -25,13 +25,16 @@ ent ents[map_levels][ENTS_COUNT];
 #define ent_player 1
 #define ent_ladder_up 2
 #define ent_ladder_down 3
-#define ent_herb 4
-#define ent_key 5
-#define ent_coin 6
-#define ent_coins 7
-#define ent_chest 8
-#define ent_chest_emptied 9
-#define ent_mimic 10
+#define ent_ladder_up2 4
+#define ent_ladder_down2 5
+#define ent_herb 6
+#define ent_key 7
+#define ent_coin 8
+#define ent_coins 9
+#define ent_chest 10
+#define ent_chest_emptied 11
+#define ent_mimic 12
+#define ent_cleaver 13
 
 // number of types per level
 int map_ent_type_count[map_levels] = {0};
@@ -67,6 +70,12 @@ ent_type ent_types[42] = {
 	{ "ladder down", ent_state_dormant, 
 		0, 0, 0, "descends",
 		{ 100, 0, 20, 20 }, 13 },
+	{ "ladder up 2", ent_state_dormant, 
+		0, 0, 0, "accents",
+		{ 80, 0, 20, 20 }, 13 },
+	{ "ladder down 2", ent_state_dormant, 
+		0, 0, 0, "decents",
+		{ 100, 0, 20, 20 }, 13 },
 	{ "herb", ent_state_dormant, 0, 0, 0, "heals", 
 		{ 0, 60, 20, 9 }, 0
 	},
@@ -87,4 +96,7 @@ ent_type ent_types[42] = {
 	{ "mimic", ent_state_wandering, 
 		43, 12, 12, "mawls",
 		{ 60, 40, 20, 20 }, 120 },
+	{ "cleaver", ent_state_dormant, 
+		0, 0, 0, "cleaves",
+		{ 80, 20, 20, 20 }, 1777 },
 };

@@ -48,7 +48,7 @@ void state_game_hud_render() {
 	font_render_text(words, fonts[0], fvc_renderer, text);
 	// Level 
 	text.y += fonts[0].height;
-	sprintf(words, "Depth   %d", player_level + 1);
+	sprintf(words, "Depth   %1X", player_level + 1);
 	font_render_text(words, fonts[0], fvc_renderer, text);
 
 	// action text

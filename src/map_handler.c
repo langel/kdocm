@@ -78,9 +78,24 @@ void map_handler_generate_all() {
 				map_data[a][i][j] = 0;
 			}
 		}
-		ent_load_type(a, 2, ent_ladder_up);
-		ents[a][2].xt = room_centers[0][0];
-		ents[a][2].yt = room_centers[0][1];
+		if (a == 0) {
+			ent_load_type(a, 0, ent_player);
+			ents[a][0].xt = room_centers[0][0];
+			ents[a][0].yt = room_centers[0][1];
+		}
+		else {
+			ent_load_type(a, 0, ent_player);
+			ents[a][0].xt = room_centers[0][0] + 1;
+			ents[a][0].yt = room_centers[0][1];
+			if (a == 9) {
+				ent_load_type(a, 2, ent_ladder_up2);
+			}
+			else {
+				ent_load_type(a, 2, ent_ladder_up);
+			}
+			ents[a][2].xt = room_centers[0][0];
+			ents[a][2].yt = room_centers[0][1];
+		}
 		// down ladder
 		int last_room = level_rules[a].room_count - 1;
 		mx = room_centers[last_room][0];
@@ -90,10 +105,21 @@ void map_handler_generate_all() {
 				map_data[a][i][j] = 0;
 			}
 		}
-		ent_load_type(a, 1, ent_ladder_down);
-		ents[a][1].xt = room_centers[last_room][0];
-		ents[a][1].yt = room_centers[last_room][1];
-
+		if (a == 6) {
+			ent_load_type(a, 3, ent_ladder_down2);
+			ents[a][3].xt = room_centers[last_room-2][0];
+			ents[a][3].yt = room_centers[last_room-2][1];
+		}
+		if (a != 8 && a != 11) {
+			ent_load_type(a, 1, ent_ladder_down);
+			ents[a][1].xt = room_centers[last_room][0];
+			ents[a][1].yt = room_centers[last_room][1];
+		}
+		if (a == 11) {
+			ent_load_type(a, 1, ent_cleaver);
+			ents[a][1].xt = room_centers[last_room][0];
+			ents[a][1].yt = room_centers[last_room][1];
+		}
 		// CORRIDORS PLOT
 		for (int i = 1; i < level->room_count; i++) {
 			// corridor cut outs between cavities
