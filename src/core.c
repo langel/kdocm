@@ -9,6 +9,7 @@ SDL_Rect camera_rect = { 0, 0, 320, 200};
 #include "./player.c"
 #include "./map_data.c"
 #include "./ent_data.c"
+#include "./fov.c"
 #include "./action_log.c"
 #include "./ent_handler.c"
 #include "./cavern_gen.c"
@@ -20,7 +21,7 @@ void core_init() {
 	fcl_init();
 	window_state_set_filename("kdocm");
 	window_init("King Duck of Cluck Mountain");
-	dpipe_init("src/map_grafx.c");
+	dpipe_init("src/state_game_play.c");
 	fvc_init(SCREEN_W, SCREEN_H);
 	grafx_init();
 	map_grafx_init();

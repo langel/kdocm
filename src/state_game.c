@@ -39,6 +39,11 @@ void state_game_new() {
 void state_game_frame() {
 	player_hp = ents[player_level][0].hp;
 	player_frame_counter++;
+
+	if (keys[SDL_SCANCODE_TAB] == 1) {
+		state_game_id = (state_game_id + 1) % 2;
+		printf("tab\n");
+	}
 	
 	if (state_game_id == state_id_gameplay) {
 		state_game_play_frame();

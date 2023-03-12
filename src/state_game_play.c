@@ -4,9 +4,13 @@ SDL_Rect playfield_rect = { 0, 0, 320, 200 };
 
 void state_game_play_frame() {
 	ents_update(player_level, ents[player_level], playfield_rect);
+	int player_x = ents[player_level][0].xt;
+	int player_y = ents[player_level][0].yt;
+	int field_x = player_x - 16;
+	int field_y = player_y - 10;
 
-	camera_rect.x = (ents[player_level][0].xt - 16) * 10;
-	camera_rect.y = (ents[player_level][0].yt - 10) * 10;
+	camera_rect.x = field_x * 10;
+	camera_rect.y = field_y * 10;
 	
 	// dirt floor
 	int dirtx = camera_rect.x % SCREEN_W;
@@ -54,21 +58,27 @@ void state_game_play_frame() {
 	
 	// background refresh
 	SDL_RenderCopy(fvc_renderer, map_texture, &oob_cam, &oob_field);
+
+	// FOV
+	fvc_set_draw_color(4);
+	fov_process(player_x, player_y, field_x, field_y);
+	
+	for (int x = 0; x < FOV_W; x++) {
+		for (int y = 0; y < FOV_H; y++) {
+			if (fov_map[x][y] > 2) {
+				fvc_set_draw_color(((fov_map[x][y]+1) >> 1) + 2);
+				fvc_set_draw_color(fov_map[x][y] + 1);
+				SDL_Rect shadow = { x * 10, y * 10,	10, 10 };
+				SDL_RenderFillRect(fvc_renderer, &shadow);
+			}
+		}
+	}
+
 	ents_render(ents[player_level], fvc_renderer);
 
+	// hud
+	fvc_set_draw_color(16);
 	SDL_RenderFillRect(fvc_renderer, &(SDL_Rect) { 320, 0, 100, 200 });
 
-/*
-	// king duck
-	int frame = (frame_counter >> 2) % 4;
-	SDL_RenderCopy(fvc_renderer, spriteshit, 
-		&(SDL_Rect) { frame * 20, 0, 20, 40 },
-		&(SDL_Rect) { 100, 120, 20, 40 });
-
-	// ladder
-	SDL_RenderCopy(fvc_renderer, spriteshit, 
-		&(SDL_Rect) { 80, 0, 20, 20 },
-		&(SDL_Rect) { 80, 80, 20, 20 });
-		*/
 
 }

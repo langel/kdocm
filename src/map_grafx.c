@@ -1,4 +1,5 @@
 SDL_Rect map_texture_rect = { 0, 0, map_width * 10, map_height * 10 };
+SDL_Rect map_view_rect;
 SDL_Texture * map_texture;
 SDL_Texture * map_view_texture;
 int map_surface_width = map_width * 10;
@@ -114,12 +115,15 @@ void map_playfield_render(int level) {
 
 // XXX only show seent map tiles
 void map_view_texture_update(int level) {
+	map_view_rect = (SDL_Rect) { 
+		(SCREEN_W - map_width * 2) >> 1,
+		(SCREEN_H - map_height * 2) >> 1,
+		map_width * 2, map_height * 2 };
 	SDL_Texture * stash = SDL_GetRenderTarget(fvc_renderer);
 	// DRAW THE WHOLE MAP
 	SDL_SetRenderTarget(fvc_renderer, map_view_texture);
 	fvc_set_draw_color(7);
-	SDL_Rect map_rect = { 0, 0, map_width * 2, map_height * 2 };
-	SDL_RenderFillRect(fvc_renderer, &map_rect);
+	SDL_RenderFillRect(fvc_renderer, NULL);
 	SDL_Rect pixel = { 32, 20, 2, 2 };
 	for (int x = 0; x < map_width; x++) {
 		for (int y = 0; y < map_height; y++) {
