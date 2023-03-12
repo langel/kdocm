@@ -3,7 +3,7 @@
 
 int fov_map[FOV_W][FOV_H];
 
-void fov_process(int player_x, int player_y, int field_x, int field_y) {
+void fov_process() {
 	int x;
 	int y;
 	int size;

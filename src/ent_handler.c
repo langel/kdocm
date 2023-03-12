@@ -233,6 +233,8 @@ void ents_render(ent ents[], SDL_Renderer * renderer) {
 	for (int i = 0; i < ENTS_COUNT; i++) {
 		ent e = ents[ents_sorted[i]];
 		if (e.type != 0) {
+			if (e.xt < field_x || e.xt > field_x + FOV_W || e.yt < field_y || e.yt > field_y + FOV_H) continue;
+			if (fov_map[e.xt - field_x][e.yt - field_y] > 2) continue;
 			SDL_Rect spr_rect;
 			if (e.type == ent_player) {
 				int step_offset = (player_steps % 4) * 20;

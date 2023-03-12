@@ -2,11 +2,12 @@
 #define SCREEN_H 200
 
 int frame_counter;
-SDL_Rect camera_rect = { 0, 0, 320, 200};
 
 #include "./grafx.c"
+#include "./font.c"
 #include "./sfx.c"
 #include "./player.c"
+#include "./camera.c"
 #include "./map_data.c"
 #include "./ent_data.c"
 #include "./fov.c"
@@ -23,6 +24,7 @@ void core_init() {
 	window_init("King Duck of Cluck Mountain");
 	dpipe_init("src/state_game_play.c");
 	fvc_init(SCREEN_W, SCREEN_H);
+	font_init();
 	grafx_init();
 	map_grafx_init();
 	state_controller_init();

@@ -7,8 +7,6 @@ enum states {
 	map_test,
 } state_id;
 
-#include "./state_game_play.c"
-#include "./state_game_map.c"
 #include "./state_game.c"
 #include "./state_map_test.c"
 #include "./state_crap_demo.c"
@@ -16,6 +14,8 @@ enum states {
 
 void state_controller_init() {
 	state_map_test_init();
+	state_game_init();
+	// XXX should be called from title menu
 	state_game_new();
 }
 

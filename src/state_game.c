@@ -3,8 +3,12 @@
 
 int state_game_id;
 
+#include "./state_game_play.c"
+#include "./state_game_map.c"
+#include "./state_game_hud.c"
 
 void state_game_init() {
+	state_game_hud_init();
 }
 
 void state_game_enter_level(int new_level) {
@@ -30,7 +34,7 @@ void state_game_new() {
 	ents[0][0].hp = player_hp;
 	//ents[0][0].state = ent_state_player_controlled;
 	ents[0][0].state = ent_state_wandering;
-	state_game_enter_level(4);
+	state_game_enter_level(0);
 	map_playfield_render(player_level);
 	map_view_texture_update(player_level);
 }
@@ -47,6 +51,7 @@ void state_game_frame() {
 	
 	if (state_game_id == state_id_gameplay) {
 		state_game_play_frame();
+		state_game_hud_render();
 	}
 	if (state_game_id == state_id_mapview) {
 		state_game_map_frame();

@@ -4,10 +4,10 @@ SDL_Rect playfield_rect = { 0, 0, 320, 200 };
 
 void state_game_play_frame() {
 	ents_update(player_level, ents[player_level], playfield_rect);
-	int player_x = ents[player_level][0].xt;
-	int player_y = ents[player_level][0].yt;
-	int field_x = player_x - 16;
-	int field_y = player_y - 10;
+	player_x = ents[player_level][0].xt;
+	player_y = ents[player_level][0].yt;
+	field_x = player_x - 16;
+	field_y = player_y - 10;
 
 	camera_rect.x = field_x * 10;
 	camera_rect.y = field_y * 10;
@@ -79,6 +79,22 @@ void state_game_play_frame() {
 	// hud
 	fvc_set_draw_color(16);
 	SDL_RenderFillRect(fvc_renderer, &(SDL_Rect) { 320, 0, 100, 200 });
+	
+	// player controls
+	if (ents[player_level][0].state == ent_state_player_controlled) {
+		ents[player_level][0].dir = 0xff;
+		if (keys[SDL_SCANCODE_RIGHT]) ents[player_level][0].dir = 0;
+		if (keys[SDL_SCANCODE_UP]) ents[player_level][0].dir = 1;
+		if (keys[SDL_SCANCODE_LEFT]) ents[player_level][0].dir = 2;
+		if (keys[SDL_SCANCODE_DOWN]) ents[player_level][0].dir = 3;
+	}
+	if (keys[SDL_SCANCODE_C] == 1) {
+		printf("c pressed\n");
+		if (ents[player_level][0].state == ent_state_player_controlled) {
+			ents[player_level][0].state = ent_state_blocked;
+		}
+		else ents[player_level][0].state = ent_state_player_controlled;
+	}
 
 
 }
