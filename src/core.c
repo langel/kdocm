@@ -36,14 +36,16 @@ void core_init() {
 void core_main() {
 	core_init();
 	// XXX specific for dev pipeline
-	SDL_MinimizeWindow(window);
-	SDL_RestoreWindow(window);
+//	SDL_MinimizeWindow(window);
+//	SDL_RestoreWindow(window);
 //	SDL_RaiseWindow(window);
-	window_focus();
+//	window_focus();
+	frame_set_fps(60);
 	while (fcl_running) {
 		SDL_SetRenderTarget(fvc_renderer, fvc_texture);
 		state_controller_frame();
 		frame_counter++;
+		frame_wait_next();
 		fcl_update();
 		if (keys[SDL_SCANCODE_ESCAPE]) fcl_shutdown();
 	}

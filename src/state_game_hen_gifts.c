@@ -2,7 +2,7 @@
 char hen_gifts_text[5][64] = {
 	"\"You, mighty drake, are so",
 	"     handsome and strong and a true",
-	"        mother plucker for the ages!",
+	"        Mother Plucker for the ages!",
 	"           Recieveth mine feather as tribute!\"",
 };
 
