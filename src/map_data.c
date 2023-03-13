@@ -35,23 +35,23 @@ map_level_rules level_rules[map_levels] = {
 	{ // level 2
 		{  80, 50 },
 		{  28, 14 },
-		9, 256, 512, 0, 64 },
+		4, 256, 512, 0, 64 },
 	{ // level 3
-		{ 126, 78 }, // max map size
+		{  70, 80 }, // max map size
 		{  32, 20 }, // max room size
-		9, 512, 256, 0, 128 },
+		5, 512, 256, 0, 128 },
 	{ // level 4
 		{  80, 50 }, // max map size
 		{  40, 24 }, // max room size
-		5, 512, 128, 0, 256 },
+		6, 512, 128, 0, 256 },
 	{ // level 5
-		{ 126, 78 }, // max map size
+		{  70, 78 }, // max map size
 		{   3,  2 }, // max room size
-		9, 128, 64, 0, 512 },
+		7, 128, 64, 0, 512 },
 	{ // level 6
-		{ 126, 78 }, // max map size
+		{  60, 40 }, // max map size
 		{  20,  8 }, // max room size
-		9, 1024, 32, 0, 256 },
+		8, 1024, 32, 0, 256 },
 	{ // level 7
 		{  80, 50 }, // max map size
 		{  32, 20 }, // max room size
@@ -65,15 +65,15 @@ map_level_rules level_rules[map_levels] = {
 		{   3,  4 }, // max room size
 		3, 256, 4, 0, 32 },
 	{ // level 10 // macguffin quest
-		{  80, 50 }, // max map size
-		{  40, 24 }, // max room size
-		5, 512, 16, 128, 64 },
+		{  28, 20 }, // max map size
+		{  7, 5 }, // max room size
+		3, 512, 16, 128, 64 },
 	{ // level 11 // macguffin quest
 		{ 126, 78 }, // max map size
 		{   3,  2 }, // max room size
-		2, 128, 0, 1024, 128 },
+		15, 128, 0, 1024, 128 },
 	{ // level 12 // macguffin quest
-		{ 126, 78 }, // max map size
+		{ 63, 39 }, // max map size
 		{  20,  8 }, // max room size
 		3, 1024, 0, 2048, 256 },
 };

@@ -18,9 +18,9 @@ void map_handler_generate_all() {
 	}
 	for (int a = 0; a < map_levels; a++) {
 		// CAVERN CAVITY
-		int targ_w = level_rules[a].map_max_size[0] * 2;
+		int targ_w = (int) ((float) level_rules[a].map_max_size[0] * 1.5f);
 		if (targ_w > map_width) targ_w = map_width - 2;
-		int targ_h = level_rules[a].map_max_size[1] * 2;
+		int targ_h = (int) ((float) level_rules[a].map_max_size[1] * 1.5f);
 		if (targ_h > map_height) targ_h = map_height - 2;
 		cav_generate(targ_w, targ_h);
 		

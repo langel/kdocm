@@ -33,6 +33,9 @@ void state_game_enter_level(int new_level) {
 
 
 void state_game_new() {
+	struct timeval seed;
+	gettimeofday(&seed, NULL);
+	rng_reset(seed.tv_sec);
 	state_id = game;
 	state_game_id = state_id_gameplay;
 	player_game_new();
