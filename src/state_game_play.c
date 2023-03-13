@@ -79,7 +79,7 @@ void state_game_play_frame() {
 				int blocks = fov_map[x][y];
 				int color;
 				//color = (blocks % 14) + 4;
-				if (player_has_feather > 0) {
+				if (player_has_feather > 0 || player_hp <= 0) {
 					color = ((0xffffffff + blocks - (frame_counter >> 3)) % 14) + 4;
 				}
 				else if (player_has_cleaver > 0) {

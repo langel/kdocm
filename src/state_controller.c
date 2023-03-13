@@ -18,8 +18,6 @@ enum states {
 void state_controller_init() {
 	state_map_test_init();
 	state_game_init();
-	// XXX should be called from title menu
-	//state_game_new();
 	state_id = title;
 }
 

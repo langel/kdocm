@@ -7,36 +7,37 @@ SDL_Rect congration_text_rect = { 60, 120, 300, 0 };
 void state_congration_frame() {
 	// bg
 	SDL_RenderCopy(fvc_renderer, dirt_texture, NULL, NULL);
+	// cleaver
+	SDL_RenderCopy(fvc_renderer, spriteshit, 
+		&(SDL_Rect) { 120, 80, 40, 40 },
+		&(SDL_Rect) { 10, 30, 40, 40 });
+	// feather
+	SDL_RenderCopy(fvc_renderer, spriteshit, 
+		&(SDL_Rect) { 160, 80, 40, 40 },
+		&(SDL_Rect) { 80, 15, 40, 40 });
+	// duck
+	SDL_RenderCopy(fvc_renderer, spriteshit, 
+		&(SDL_Rect) { 180, 0, 60, 80 },
+		&(SDL_Rect) { 40, 10, 60, 80 });
 	// title of game
-	SDL_RenderCopy(fvc_renderer, spriteshit, &congration_title_sprite, &congration_title_rect);
-	// title of game again
-	congration_text_rect.h = fonts[0].height;
-	font_set_color(fonts[0], sdl_palette[1]);
-	congration_text_rect.x = 280;
-	congration_text_rect.y = 30;
-	font_render_text("Cave", fonts[0], fvc_renderer, congration_text_rect);
-	congration_text_rect.y = 42;
-	font_render_text("     of", fonts[0], fvc_renderer, congration_text_rect);
-	congration_text_rect.y = 34;
-	congration_text_rect.x = 310;
-	congration_text_rect.h = fonts[1].height;
-	font_set_color(fonts[1], sdl_palette[4]);
-	font_render_text("Grell", fonts[1], fvc_renderer, congration_text_rect);
+	SDL_RenderCopy(fvc_renderer, spriteshit, 
+		&(SDL_Rect) { 0, 120, 380, 80 },
+		&(SDL_Rect) { 20, 110, 380, 80 });
 	// congration text
-	font_set_color(fonts[0], sdl_palette[0]);
-	congration_text_rect.x = 90;
-	congration_text_rect.y = 45;
-	congration_text_rect.h = fonts[0].height;
-	font_render_text("Thou art haveth survived teh", fonts[0], fvc_renderer, congration_text_rect);
-	// copy text
 	font_set_color(fonts[1], sdl_palette[1]);
-	congration_text_rect.x = 30;
-	congration_text_rect.y = 20;
+	congration_text_rect.x = 180;
+	congration_text_rect.y = 10;
 	congration_text_rect.h = fonts[1].height;
 	font_render_text("Congrations!!", fonts[1], fvc_renderer, congration_text_rect);
+	// copy text
+	font_set_color(fonts[0], sdl_palette[0]);
+	congration_text_rect.x = 130;
+	congration_text_rect.y = 45;
+	congration_text_rect.h = fonts[0].height;
+	font_render_text("Thou art nownth skillethed with cleaver and feather!", fonts[0], fvc_renderer, congration_text_rect);
 	// xp / gp / time
 	font_set_color(fonts[1], sdl_palette[1]);
-	congration_text_rect.x = 80;
+	congration_text_rect.x = 140;
 	congration_text_rect.y = 70;
 	congration_text_rect.h = fonts[1].height;
 	char str[64];
