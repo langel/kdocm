@@ -28,6 +28,12 @@ void state_controller_frame() {
 		player_won = 0;
 		frame_counter = 0;
 	}
+	if (player_has_cleaver) {
+		if (sfx_equip_counter % 12 == 0) {
+			if (sfx_equip_counter < 80) sfx_equip();
+		}
+		sfx_equip_counter++;
+	}
 	switch (state_id) {
 		case crap_demo:
 			state_crap_demo_frame();

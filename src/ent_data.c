@@ -52,15 +52,15 @@ ent ents[map_levels][ENTS_COUNT];
 // number of types per level
 int map_ent_type_count[map_levels] = {
 	3, 6, 7, 
-	3, 3, 3,
-	3, 3, 3,
-	3, 3, 3,
+	7, 7, 13,
+	13, 15, 1,
+	5, 6, 7,
 };
 // number of ents per level
 int map_ents_count[map_levels] = {
 	5, 24, 28,  
 	32, 16, 24,  
-	56, 88, 1,
+	56, 88, 17,
 	3, 24, 5,
 };
 // ent types per level
@@ -72,23 +72,23 @@ int map_ent_types[map_levels][16] = {
 	// level 3
 	{ ent_rat, ent_worm, ent_snake, ent_snake, ent_gnome, ent_owlbear, ent_coin },
 	// level 4
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_rat, ent_worm, ent_herb, ent_snake, ent_gnome, ent_snerv, ent_crab },
 	// level 5
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_rat, ent_worm, ent_herb, ent_jackalope, ent_snerv, ent_homunculous, ent_crab },
 	// level 6
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_rat, ent_worm, ent_herb, ent_snake, ent_snerv, ent_homunculous, ent_coins, ent_chest, ent_worm, ent_owlbear, ent_jackalope, ent_worm, ent_crab },
 	// level 7
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_rat, ent_worm, ent_herb, ent_snake, ent_snerv, ent_homunculous, ent_coins, ent_chest, ent_worm, ent_owlbear, ent_jackalope, ent_coin, ent_worm },
 	// level 8
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_rat, ent_worm, ent_herb, ent_snake, ent_snerv, ent_homunculous, ent_coins, ent_chest, ent_worm, ent_owlbear, ent_jackalope, ent_coin, ent_worm, ent_worm, ent_worm },
 	// level 9
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_worm },
 	// level A
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_rat, ent_worm, ent_herb, ent_goat, ent_goat },
 	// level B
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_rat, ent_worm, ent_herb, ent_goat, ent_goat, ent_goat },
 	// level C
-	{ ent_rat, ent_worm, ent_herb },
+	{ ent_rat, ent_worm, ent_herb, ent_goat, ent_goat, ent_goat, ent_goat },
 };
 
 typedef struct {

@@ -39,7 +39,8 @@ void sfx_heal() {
 	audio_fade = 0.99977;
 }
 
-void sfx_crown() {
+int sfx_equip_counter;
+void sfx_equip() {
 	audio_hertz = (float) (1777 - rand() % 22) / 32000.0;
 	audio_amp = 0.3;
 	audio_bend = 1.000001;

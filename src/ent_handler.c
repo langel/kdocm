@@ -111,6 +111,7 @@ void ents_update(int map_level, ent ents[], SDL_Rect rect) {
 							ent_load_type(map_level, target_id, ent_nan);
 							// this triggers crown sfx
 							player_has_cleaver = 1;
+							sfx_equip_counter = 0;
 						}
 						// motherhen interaction
 						if (ent_target.type == ent_mother_hen && player_has_feather == 0) {
@@ -121,9 +122,11 @@ void ents_update(int map_level, ent ents[], SDL_Rect rect) {
 								//ent_load_type(map_level, target_id, ent_nan);
 								// this triggers crown sfx
 								player_has_feather = 1;
+								sfx_equip_counter = 0;
 							}
 							else {
 								state_game_id = state_id_hen_kills;
+								sfx_death();
 							}
 						}
 						if (ent_target.type == ent_ladder_down) {
@@ -202,6 +205,7 @@ void ents_update(int map_level, ent ents[], SDL_Rect rect) {
 					// don't attack dormant or same types
 					if (ent_target.state != ent_state_dormant && e.type != ent_target.type) {
 						int damage = ent_target_type.damage_base + rand() %  ent_target_type.damage_rand;
+						if (e.type == ent_player && player_has_cleaver) damage *= 3;
 						if (e.type == ent_player || ent_target.type == ent_player) {
 							sprintf(action_log_temp[0], "%s %s", ent_types[e.type].name, ent_types[e.type].verb);
 							sprintf(action_log_temp[1], " %s for", ent_target_type.name);

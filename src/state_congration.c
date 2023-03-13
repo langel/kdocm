@@ -24,11 +24,9 @@ void state_congration_frame() {
 		&(SDL_Rect) { 0, 120, 380, 80 },
 		&(SDL_Rect) { 20, 110, 380, 80 });
 	// congration text
-	font_set_color(fonts[1], sdl_palette[1]);
-	congration_text_rect.x = 180;
-	congration_text_rect.y = 10;
-	congration_text_rect.h = fonts[1].height;
-	font_render_text("Congrations!!", fonts[1], fvc_renderer, congration_text_rect);
+	SDL_RenderCopy(fvc_renderer, spriteshit, 
+		&(SDL_Rect) { 200, 80, 220, 30 },
+		&(SDL_Rect) { 140, 10, 220, 30 });
 	// copy text
 	font_set_color(fonts[0], sdl_palette[0]);
 	congration_text_rect.x = 130;

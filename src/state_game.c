@@ -45,6 +45,7 @@ void state_game_new() {
 	state_game_id = state_id_gameplay;
 	//player_has_cleaver = 1;
 	//player_has_feather = 1;
+	sfx_equip_counter = 0;
 }
 
 
