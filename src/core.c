@@ -2,6 +2,7 @@
 #define SCREEN_H 200
 
 int frame_counter;
+SDL_Rect text_rect;
 
 #include "./grafx.c"
 #include "./font.c"
@@ -32,7 +33,6 @@ void core_init() {
 }
 
 void core_main() {
-	frame_counter++;
 	core_init();
 	// XXX specific for dev pipeline
 	SDL_MinimizeWindow(window);

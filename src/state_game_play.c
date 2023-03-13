@@ -3,6 +3,16 @@ SDL_Rect playfield_rect = { 0, 0, 320, 200 };
 
 
 void state_game_play_frame() {
+	// player death?
+	if (player_hp <= 0) {
+		ents[player_level][0].state = ent_state_dormant;
+		ents[player_level][0].type = ent_tombstone;
+		ents[player_level][0].yt -= 1;
+		state_game_press_space();
+		if (keys[SDL_SCANCODE_SPACE] == 1) {	
+			state_id = title;
+		}
+	}
 	ents_update(player_level, ents[player_level], playfield_rect);
 	player_x = ents[player_level][0].xt;
 	player_y = ents[player_level][0].yt;
@@ -95,6 +105,5 @@ void state_game_play_frame() {
 		}
 		else ents[player_level][0].state = ent_state_player_controlled;
 	}
-
 
 }

@@ -27,6 +27,8 @@ uint8_t palette[palette_max][4] = {
 
 // used for writing bitmapped pixels to surfaces
 uint32_t surface_palette[palette_max];
+// used for sdl textures/renderers
+SDL_Color sdl_palette[palette_max];
 
 SDL_Texture * spriteshit;
 
@@ -35,18 +37,21 @@ SDL_Texture * dirt_texture;
 
 void grafx_init() {
 
-	// convert paletter to indexed sdl colors	
 	for (int i = 0; i < palette_max; i++) {
+		// convert paletter to indexed sdl colors	
 		fvc_set_color_index(i, palette[i][0], palette[i][1], palette[i][2]);
-	}
-	// convert palette for bitmap/surface usage
-	for (int i = 0; i < palette_max; i++) {
+		// convert palette for bitmap/surface usage
 		uint32_t color = 0;
 		color += palette[i][0] << 24;
 		color += palette[i][1] << 16;
 		color += palette[i][2] << 8;
 		color += 255;
 		surface_palette[i] = color;
+		// convert palette to sdl colors
+		sdl_palette[i].r = palette[i][0];
+		sdl_palette[i].g = palette[i][1];
+		sdl_palette[i].b = palette[i][2];
+		sdl_palette[i].a = palette[i][3];
 	}
 
 	// load the spriteshit

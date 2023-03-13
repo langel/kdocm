@@ -112,11 +112,31 @@ void ents_update(int map_level, ent ents[], SDL_Rect rect) {
 							// this triggers crown sfx
 							player_has_cleaver = 1;
 						}
+						// motherhen interaction
+						if (ent_target.type == ent_mother_hen && player_has_feather == 0) {
+							if (player_has_cleaver) {
+								state_game_id = state_id_hen_gifts;
+								player_gp += 7777;
+								player_xp += 7777;
+								//ent_load_type(map_level, target_id, ent_nan);
+								// this triggers crown sfx
+								player_has_feather = 1;
+							}
+							else {
+								state_game_id = state_id_hen_kills;
+							}
+						}
 						if (ent_target.type == ent_ladder_down) {
 							player_update_level = 1;
 						}
 						if (ent_target.type == ent_ladder_up) {
-							player_update_level = -1;
+							if (player_level == 0) {
+								state_game_id = state_id_first_ladder;
+								if (player_has_feather) {
+									player_won++;
+								}
+							}
+							else player_update_level = -1;
 						}
 						if (ent_target.type == ent_ladder_down2) {
 							player_update_level = 3;
@@ -175,7 +195,7 @@ void ents_update(int map_level, ent ents[], SDL_Rect rect) {
 							e.hp += amount;
 							if (e.hp > player_hp_max) e.hp = player_hp_max;
 							player_hp = e.hp;
-							ent_load_type(map_level, target_id, ent_nan);
+							ent_load_type(map_level, target_id, ent_herb_gone);
 							sfx_heal();
 						}
 					}
@@ -239,18 +259,27 @@ void ents_render(ent ents[], SDL_Renderer * renderer) {
 		if (e.type != 0) {
 			if (e.xt < field_x || e.xt > field_x + FOV_W || e.yt < field_y || e.yt > field_y + FOV_H) continue;
 			if (fov_map[e.xt - field_x][e.yt - field_y] > 2) continue;
-			SDL_Rect spr_rect;
-			if (e.type == ent_player) {
-				int step_offset = (player_steps % 4) * 20;
-				spr_rect = ent_types[ent_player].sprite;
-				spr_rect.x += step_offset;
-			}
-			else spr_rect = ent_types[e.type].sprite;
+			SDL_Rect spr_rect = ent_types[e.type].sprite;
 			SDL_Rect rect = { 
 				(int) (e.xt * 10 + 5 - spr_rect.w / 2) - camera_rect.x,
 				(int) (e.yt * 10 + 8 - spr_rect.h) - camera_rect.y,
 				spr_rect.w, spr_rect.h
 			};
+			if (e.type == ent_player) {
+				int step_offset = (player_steps % 4) * 20;
+				spr_rect.x += step_offset;
+				step_offset = (player_steps % 4) >> 1;
+				if (player_has_cleaver) {
+					SDL_RenderCopy(renderer, spriteshit,
+						&(SDL_Rect) { 100, 20, 20, 20 },
+						&(SDL_Rect) { rect.x - 14 + step_offset, rect.y + 11 + 1 - step_offset, 20, 20});
+				}
+				if (player_has_feather) {
+					SDL_RenderCopy(renderer, spriteshit,
+						&(SDL_Rect) { 120, 20, 20, 20 },
+						&(SDL_Rect) { rect.x + 12 + 1 - step_offset, rect.y + 10 + step_offset, 20, 20});
+				}
+			}
 			SDL_RenderCopy(renderer, spriteshit, &spr_rect, &rect);
 		}
 	}
