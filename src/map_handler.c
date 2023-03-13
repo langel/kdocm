@@ -118,6 +118,8 @@ void map_handler_generate_all() {
 			ents[a][1].xt = room_centers[last_room][0];
 			ents[a][1].yt = room_centers[last_room][1];
 		}
+		// PLACE ENTS
+		ents_init(a);
 		// CORRIDORS PLOT
 		for (int i = 1; i < level->room_count; i++) {
 			// corridor cut outs between cavities

@@ -220,7 +220,7 @@ void ents_update(int map_level, ent ents[], SDL_Rect rect) {
 							ents[target_id].type = 0;
 							// player bonuses
 							if (i == 0) {
-								sprintf(action_log_temp[0], "player bills");
+								sprintf(action_log_temp[0], "%s bills", ent_types[e.type].name);
 								sprintf(action_log_temp[1], " %s for", ent_target_type.name);
 								sprintf(action_log_temp[2], "  %d xp", ent_target_type.xp);
 								action_log_update();

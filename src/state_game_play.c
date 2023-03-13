@@ -71,13 +71,24 @@ void state_game_play_frame() {
 
 	// FOV
 	fvc_set_draw_color(4);
-	fov_process(player_x, player_y, field_x, field_y);
+	fov_process();
 	
 	for (int x = 0; x < FOV_W; x++) {
 		for (int y = 0; y < FOV_H; y++) {
 			if (fov_map[x][y] > 2) {
-				fvc_set_draw_color(((fov_map[x][y]+1) >> 1) + 2);
-				fvc_set_draw_color(fov_map[x][y] + 1);
+				int blocks = fov_map[x][y];
+				int color;
+				//color = (blocks % 14) + 4;
+				if (player_has_feather > 0) {
+					color = ((0xffffffff + blocks - (frame_counter >> 3)) % 14) + 4;
+				}
+				else if (player_has_cleaver > 0) {
+					color = ((blocks % 14) - 2) + 4;
+				}
+				else {
+					color = ((int) (((float) player_level / (float) (map_levels << 1)) * (float) blocks) % 14) + 4;
+				}
+				fvc_set_draw_color(color);
 				SDL_Rect shadow = { x * 10, y * 10,	10, 10 };
 				SDL_RenderFillRect(fvc_renderer, &shadow);
 			}

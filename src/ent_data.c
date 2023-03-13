@@ -50,11 +50,46 @@ ent ents[map_levels][ENTS_COUNT];
 #define ent_tombstone 26
 
 // number of types per level
-int map_ent_type_count[map_levels] = {0};
+int map_ent_type_count[map_levels] = {
+	3, 6, 7, 
+	3, 3, 3,
+	3, 3, 3,
+	3, 3, 3,
+};
 // number of ents per level
-int map_ents_count[map_levels] = {0};
+int map_ents_count[map_levels] = {
+	5, 24, 28,  
+	32, 16, 24,  
+	56, 88, 1,
+	3, 24, 5,
+};
 // ent types per level
-int map_ent_types[map_levels][16] = {0};
+int map_ent_types[map_levels][16] = {
+	// level 1
+	{ ent_rat, ent_worm, ent_herb },
+	// level 2
+	{ ent_rat, ent_worm, ent_herb, ent_owlbear, ent_coin, ent_chest },
+	// level 3
+	{ ent_rat, ent_worm, ent_snake, ent_snake, ent_gnome, ent_owlbear, ent_coin },
+	// level 4
+	{ ent_rat, ent_worm, ent_herb },
+	// level 5
+	{ ent_rat, ent_worm, ent_herb },
+	// level 6
+	{ ent_rat, ent_worm, ent_herb },
+	// level 7
+	{ ent_rat, ent_worm, ent_herb },
+	// level 8
+	{ ent_rat, ent_worm, ent_herb },
+	// level 9
+	{ ent_rat, ent_worm, ent_herb },
+	// level A
+	{ ent_rat, ent_worm, ent_herb },
+	// level B
+	{ ent_rat, ent_worm, ent_herb },
+	// level C
+	{ ent_rat, ent_worm, ent_herb },
+};
 
 typedef struct {
 	int ent_types_count;
@@ -75,7 +110,7 @@ typedef struct {
 ent_type ent_types[42] = {
 	{ "nan", ent_state_dead, 0, 0, 0, "does not exist", 
 		{ 0, 0, 0, 0 }, 0 },
-	{ "player", ent_state_wandering,	42, 10, 10, "quacks", 
+	{ "King Duck", ent_state_wandering,	42, 10, 10, "quacks", 
 		{ 0, 0, 20, 40 }, 0 },
 	{ "ladder up", ent_state_dormant, 
 		0, 0, 0, "ascends",
@@ -144,7 +179,7 @@ ent_type ent_types[42] = {
 	{ "owlbear", ent_state_wandering, 
 		59, 14, 7, "claws",
 		{ 160, 40, 20, 40 }, 777 },
-	{ "herb gone", ent_state_dormant, 0, 0, 0, "filths", 
+	{ "herb gone", ent_state_dead, 0, 0, 0, "filths", 
 		{ 20, 60, 20, 20 }, 0 },
 	{ "tombstone", ent_state_dormant, 0, 0, 0, "sits", 
 		{ 100, 80, 20, 20 }, 0 },
