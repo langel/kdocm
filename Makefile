@@ -11,4 +11,4 @@ build:
 	-lSDL2 \
 	-mwindows \
 	-lSDL2_image \
-	-mconsole
+#	-mconsole

@@ -1,6 +1,7 @@
 
 #define palette_max 24
 
+// palette source: https://lospec.com/palette-list/bounce-16
 uint8_t palette[palette_max][4] = {
 	// 0
 	{ 0xec, 0xe0, 0xd3, 0xff }, // beige

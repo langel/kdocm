@@ -24,7 +24,7 @@ void core_init() {
 	audio_init(32000, 2, 1024, AUDIO_F32SYS, &audio_callback);
 	window_state_set_filename("kdocm");
 	window_init("King Duck of Cluck Mountain");
-	dpipe_init("src/state_game_play.c");
+	//dpipe_init("src/state_game_play.c");
 	fvc_init(SCREEN_W, SCREEN_H);
 	font_init();
 	grafx_init();
