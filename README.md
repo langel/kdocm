@@ -24,3 +24,16 @@
 
 ### Day 4
 - integrate cavern generation
+
+### Day 5
+- what day is it?
+
+### Day 6
+- Line of Sight aka Field of View
+- side quest ladders and cleaver
+
+### Day 7
+- Mother Hen and the Feather
+- ents integration
+- turn the sound on
+- compose cut scene screens
